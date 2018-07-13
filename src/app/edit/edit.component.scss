@@ -1,0 +1,13 @@
+.test-edit {
+    overflow: auto;
+    mat-dialog-container {
+        width: 500px!important;
+    }
+    test-edit {
+        form {
+            > * {
+                display: block!important;
+            }
+        }
+    }
+}

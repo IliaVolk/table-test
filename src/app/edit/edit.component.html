@@ -1,0 +1,43 @@
+<form [formGroup]="form" cdk-scrollable>
+    <mat-form-field>
+        <input matInput formControlName="location" placeholder="location">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="owner" placeholder="owner">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="type" placeholder="type">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput
+               formControlName="date"
+               placeholder="date"
+               [satDatepicker]="datePicker">
+        <sat-datepicker
+                #datePicker
+                [rangeMode]="false"></sat-datepicker>
+        <sat-datepicker-toggle matSuffix [for]="datePicker"></sat-datepicker-toggle>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="a5" placeholder="a5">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="act" placeholder="act">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="error" formControlName="error">
+            <mat-option *ngFor="let option of [1, 2, 3, 4]" [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="notes" placeholder="notes">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="sample_note" placeholder="sample note">
+    </mat-form-field>
+    <button type="submit" mat-raised-button [mat-dialog-close]="form.value">
+        Save
+    </button>
+</form>

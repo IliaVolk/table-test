@@ -1,0 +1,122 @@
+<form [formGroup]="filterForm">
+    <div class="test-filter">
+        <mat-form-field>
+            <mat-select placeholder="Location" formControlName="location">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let item of locations" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="test-filter">
+        <mat-form-field>
+            <mat-select placeholder="Owner" formControlName="owner">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let item of owners" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="test-filter">
+        <mat-form-field>
+            <mat-select placeholder="Type" formControlName="type">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let item of types" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="test-filter">
+        <mat-form-field>
+            <input matInput placeholder="Date"
+                   [max]="maxDate"
+                   [min]="minDate"
+                   formControlName="date"
+                   [satDatepicker]="datePicker">
+            <sat-datepicker
+                    #datePicker
+                    [rangeMode]="true">
+            </sat-datepicker>
+            <button mat-icon-button
+                    matSuffix
+                    [style.visibility]="filterForm.value.date ? 'visible' : 'hidden'"
+                    (click)="filterForm.patchValue({date: null})">
+                <mat-icon class="test-clear-datepicker">close</mat-icon>
+            </button>
+            <sat-datepicker-toggle matSuffix [for]="datePicker"></sat-datepicker-toggle>
+        </mat-form-field>
+    </div>
+</form>
+<div class="test-table-wrapper">
+    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="location" sticky>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+            <td mat-cell *matCellDef="let item">
+                {{item.location}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="owner">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Owner</th>
+            <td mat-cell *matCellDef="let item">
+                {{item.owner}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+            <td mat-cell *matCellDef="let item">
+                {{item.type}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date/Time</th>
+            <td mat-cell *matCellDef="let item">
+                {{item.date|date:'dd/MM/yyyy h:mm'}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="a5">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>AS</th>
+            <td mat-cell *matCellDef="let item">
+                {{item.a5}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="act">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Act</th>
+            <td mat-cell *matCellDef="let item">
+                {{item.act}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="error">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Error</th>
+            <td mat-cell *matCellDef="let item">
+                <div class="test-error e{{item.error}}"></div>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="notes">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Notes</th>
+            <td mat-cell *matCellDef="let item">
+                {{item.notes}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="sample_note">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Simple Note</th>
+            <td mat-cell *matCellDef="let item">
+                {{item.sample_note}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let item">
+                <button mat-button (click)="edit(item)">
+                    <mat-icon>edit</mat-icon>
+                    Edit
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
